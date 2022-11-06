@@ -1,24 +1,44 @@
-import logo from './logo.svg';
+
+import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import './App.css';
+import reactGfm from 'remark-gfm';
+import DefaultText from './defText';
+import logo from './GitHub-Mark-Light-64px.png';
 
 function App() {
+  
+  const [text, setText] = useState(DefaultText)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+
+  <div className="container">
+    <header className='header'>
+      <h1> It`s react-markdown-previewer</h1>
+        <a href="https://github.com/erizo47" target="_blank" rel="noopener noreferrer">
+          <img src={logo}  alt="Link to GitHub page"></img>
         </a>
-      </header>
-    </div>
+    </header>
+    <main>
+      <div className="editor">
+        <form>
+          <textarea
+          value={text}
+          className='text'
+          onChange={e => setText(e.target.value)}
+          ></textarea>
+        </form>
+      </div>
+      <div className="previewer">
+        <div className='markdown-body'>
+          <ReactMarkdown children={text} remarkPlugins={reactGfm}></ReactMarkdown>
+        </div>      
+      </div>
+    </main>    
+   </div>
+
+
+
+
   );
 }
 
